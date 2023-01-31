@@ -1,20 +1,19 @@
-# Ecosystem Simulator 
+# Gamecketlist
 
-This project is going to be a simulator that can describe a very primitive ecosystem
-where there are going to be producers, and consumers. It's going to contain some
-ways in which the user can control their behavior in ways such as controlling their
-aggressiveness, need to reproduce, how easy it is to find food, etc. The reason for
-choosing this field is that I have always liked the idea that some traits were
-naturally selected to replace traits that it had an advantage on. My goal is to
-replicate this idea in a way such that the user can control what is selected, and
-maybe have an option to simulate 1000s of variations of the organisms, and what
-becomes the mose "successful" variant.
+This application's purpose is to keep track of all the games that I wish to
+play. I want to keep track of the Game's link, necessary equipment (such as a console),
+some screenshots, it's price, it's genre. The reason for creating such an 
+app is that video games can become pricey, and would get it if the game goes on sale
+or decide to buy it in full price. The users of this particular application would
+be not only me, but also for people who keep forgetting the games that they want
+to play in the near future.
 
-
-# User Stories
-
-- As a user, I want to be able to add an organism to my simulation
-- As a user, I want to be able to define an organism's diet
-- As a user, I want to be able to change an organism's behavior
-- As a user, I want to be able to view the list of organisms
-- As a user, I want to be able to remove an organism
+## User Stories
+- As a user, I want to add a Game into my Gamecketlist
+- As a user, I want to be able to see the number of games in my list.
+- As a user, I want to view the games in my list
+- As a user, I want to mark the game as bought.
+- As a user, I want to mark the game as in progress, or completed.
+- As a user, I want to leave screenshots of my own play through
+- As a user, I want to add a review a played game.
+- As a user, I want to add my view of it's "worth"
