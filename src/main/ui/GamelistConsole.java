@@ -64,13 +64,13 @@ public class GamelistConsole {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a game to the list
     private void addGame() {
         String name = null;
         double price = 0;
         String genre = null;
         int score = 0;
-        Game game;
-
         System.out.print("Write the name of the game: ");
         name = input.next();
         System.out.print("Write the price of the game: $");
@@ -79,6 +79,14 @@ public class GamelistConsole {
         genre = input.next();
         System.out.print("Write the score of the game (-1 for unplayed): ");
         score = input.nextInt();
+        addGame(name, price, genre, score);
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds a game to the list.
+    private void addGame(String name, double price, String genre, int score) {
+        Game game;
         if (score == -1) {
             game = new Game(name, price, genre);
         } else {
@@ -93,12 +101,12 @@ public class GamelistConsole {
             }
             game = new Game(name, price, genre, score);
         }
-
         games.addGame(game);
         System.out.println("Game with description: ");
         System.out.println(game);
         System.out.println("Has been added successfully!");
     }
+
 
     // EFFECTS: Prints out all the games;
     private void viewGames() {
@@ -178,23 +186,20 @@ public class GamelistConsole {
     // MODIFIES: this
     // EFFECTS: processes user input and changes game info.
     private void processFields(String command, int index) {
-        String in = null;
         if (command.equals("n")) {
             System.out.print("Input the new name:");
-            in = input.next();
-            games.getGame(index).setName(in);
+            games.getGame(index).setName(input.next());
         } else if (command.equals("p")) {
             System.out.print("Input the new price: $");
             double price = input.nextDouble();
             games.getGame(index).setPrice(price);
         } else if (command.equals("g")) {
             System.out.print("Input the new genre:");
-            in = input.next();
-            games.getGame(index).setGenre(in);
+            games.getGame(index).setGenre(input.next());
         } else if (command.equals("s")) {
             System.out.print("Input the new score (-1 for unplayed): ");
             int score = input.nextInt();
-            if (!(score == -1 || (score >=0 && score <= 10))){
+            if (!(score == -1 || (score >= 0 && score <= 10))) {
                 System.out.println("Invalid Score!");
                 return;
             }

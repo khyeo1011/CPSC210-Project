@@ -60,15 +60,15 @@ public class Game {
     }
 
     // EFFECTS: returns whether the game has been played.
-    public boolean hasPlayed(){
+    public boolean hasPlayed() {
         return score != -1;
     }
 
     // EFFECTS: Returns a string of a description of the gam.e
-    public String toString(){
+    public String toString() {
         String returnString = "\tName: [" + name;
-        returnString = returnString +"]\n\tPrice: $" + price + "\n\tGenre: [" + genre + "]";
-        if(score != -1){
+        returnString = returnString + "]\n\tPrice: $" + price + "\n\tGenre: [" + genre + "]";
+        if (score != -1) {
             returnString = returnString + "\n\tScore: " + score + "/10";
         }
         return returnString;
