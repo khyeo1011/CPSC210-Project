@@ -75,6 +75,11 @@ public class GamelistConsole {
         name = input.next();
         System.out.print("Write the price of the game: $");
         price = input.nextDouble();
+        while (price < 0) {
+            System.out.println("Invalid Price!");
+            System.out.print("Write the price of the game: $");
+            price = input.nextDouble();
+        }
         System.out.print("Write the genre of the game: ");
         genre = input.next();
         System.out.print("Write the score of the game (-1 for unplayed): ");
