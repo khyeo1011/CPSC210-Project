@@ -8,6 +8,7 @@ public class Game {
     private String genre; // The video game's genre
     private int score;   // The video game's score, out of 10. -1 represents a game that has yet not been played.
 
+    // REQUIRES: 0 <= price
     // EFFECTS: Creates a Game, with its name, price in CAD, and a broad genre.
     public Game(String name, double price, String genre) {
         this.name = name;
@@ -17,6 +18,7 @@ public class Game {
     }
 
     // REQUIRES: 0 <= score <= 10
+    //           0 <= price
     // EFFECTS: Creates a game that has been played, with the score.
     public Game(String name, double price, String genre, int score) {
         this.name = name;
@@ -47,6 +49,7 @@ public class Game {
         this.name = name;
     }
 
+    //REQUIRES: 0 <= price
     public void setPrice(double price) {
         this.price = price;
     }
