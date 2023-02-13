@@ -10,8 +10,8 @@ to play in the near future.
 
 ## User Stories
 - As a user, I want to be able to add an arbitrary amount Games into my list
-- As a user, I want to be able to see the number of games in my list.
+- ~~As a user, I want to be able to see the number of games in my list.~~
 - As a user, I want to view the games in my list
-- As a user, I want to mark the game as played (or completed)
-- As a user, I want to see the average price of the games.
-- As a user, I want to add a review a played game.
+- As a user, I want to be able to modify the games in my list.
+- ~~As a user, I want to see the average price of the games.~~
+- As a user, I want to see the number of games in each genre.

@@ -25,11 +25,18 @@ public class GameTest {
     }
 
     @Test
+    void testHasPlayed(){
+        assertFalse(test.hasPlayed());
+        assertTrue(testPlayed.hasPlayed());
+    }
+
+
+    @Test
     void testToString(){
-        System.out.println(testPlayed);
-        assertTrue(("Name: [The Legend of Zelda: Breath of the Wild]\n" +
-                "Price: $76.84\nGenre: [Casual]").equals(test.toString()));
-        assertTrue(("Name: [Stardew Valley]\n" + "Price: $19.99\nGenre: [Role-playing]"
-                + "\nScore: 9/10").equals(testPlayed.toString()));
+
+        assertTrue(("\tName: [The Legend of Zelda: Breath of the Wild]" +
+                "\n\tPrice: $76.84\n\tGenre: [Casual]").equals(test.toString()));
+        assertTrue(("\tName: [Stardew Valley]\n\t" + "Price: $19.99\n\tGenre: [Role-playing]"
+                + "\n\tScore: 9/10").equals(testPlayed.toString()));
     }
 }
