@@ -95,18 +95,19 @@ public class GamelistConsole {
         if (score == -1) {
             game = new Game(name, price, genre);
         } else {
-            while (!(score >= 0 && score <= 10)) {
+            while (!((score >= 0 && score <= 10) || score == -1)) {
                 System.out.println("Invalid input! Try again");
                 System.out.print("Write the score of the game (-1 for unplayed): ");
                 score = input.nextInt();
-                if (score == -1) {
-                    game = new Game(name, price, genre);
-                    break;
-                }
             }
             game = new Game(name, price, genre, score);
         }
-        games.addGame(game);
+        boolean success = games.addGame(game);
+        while(!success){
+            System.out.println("Game with same name present! Please enter another name:");
+            game.setName(input.next());
+            success = games.addGame(game);
+        }
         System.out.println("Game with description: ");
         System.out.println(game);
         System.out.println("Has been added successfully!");

@@ -15,3 +15,4 @@ to play in the near future.
 - ~~As a user, I want to be able to modify the games in my list.~~
 - ~~As a user, I want to see the average price of the games.~~
 - As a user, I want to see the number of games in each genre.
+- As a user, I want to be able to delete a game from my list.

@@ -12,9 +12,15 @@ public class GameList {
 
     // REQUIRES: game is not null.
     // MODIFIES: this.
-    // EFFECTS: Adds a game to the list.
-    public void addGame(Game game) {
+    // EFFECTS: Adds a game to the list if the name is not present. Returns true if added, false otherwise.
+    public boolean addGame(Game game) {
+        for(Game g : games){
+            if(game.getName().equals(g.getName())){
+                return false;
+            }
+        }
         games.add(game);
+        return true;
     }
 
     // EFFECTS: Returns the size of the list.

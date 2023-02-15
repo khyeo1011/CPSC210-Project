@@ -30,6 +30,18 @@ class GameListTest {
     }
 
     @Test
+    void testAddGameDuplicate() {
+        boolean success1 = test.addGame(game1);
+        boolean success2 = test.addGame(game1);
+        boolean success3 = test.addGame(new Game("Test 1", 40, "Test 1"));
+        assertTrue(success1);
+        assertFalse(success2);
+        assertFalse(success3);
+        assertEquals(1,test.getSize());
+        assertEquals(game1,test.getGame(0));
+    }
+
+    @Test
     void testGetSize() {
         assertEquals(0,test.getSize());
         test.addGame(game1);
