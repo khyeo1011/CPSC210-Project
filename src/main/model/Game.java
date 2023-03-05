@@ -1,8 +1,11 @@
 package model;
 
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a single video game.
-public class Game {
+public class Game implements Writable {
     private String name;  // The video game's name
     private double price; // The video game's price
     private String genre; // The video game's genre
@@ -75,5 +78,16 @@ public class Game {
             returnString = returnString + "\n\tScore: " + score + "/10";
         }
         return returnString;
+    }
+
+    @Override
+    // Effects: Returns the Json of the object.
+    public JSONObject toJson(){
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("price", price);
+        json.put("genre", genre);
+        json.put("score", score);
+        return json;
     }
 }

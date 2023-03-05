@@ -1,0 +1,20 @@
+{"games": [
+    {
+        "score": -1,
+        "price": 4.99,
+        "name": "Half-life",
+        "genre": "First-person shooter"
+    },
+    {
+        "score": 8,
+        "price": 19.99,
+        "name": "Kerbal Space Program",
+        "genre": "Simulation"
+    },
+    {
+        "score": 7,
+        "price": 3.99,
+        "name": "A Dance of Fire and Ice",
+        "genre": "Rhythm"
+    }
+]}

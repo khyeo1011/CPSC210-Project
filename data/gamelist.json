@@ -1,0 +1,14 @@
+{"games": [
+    {
+        "score": -1,
+        "price": 19.99,
+        "name": "Test 1",
+        "genre": "Genre 1"
+    },
+    {
+        "score": 8,
+        "price": 10,
+        "name": "Test 2",
+        "genre": "Genre 2"
+    }
+]}

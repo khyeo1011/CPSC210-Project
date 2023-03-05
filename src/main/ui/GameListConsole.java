@@ -2,18 +2,23 @@ package ui;
 
 import model.Game;
 import model.GameList;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
-import java.util.Locale;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 // Gamelist Application
-public class GamelistConsole {
+public class GameListConsole {
+    private static String DESTINATION = "./data/gamelist.json";
     private GameList games;
     private Scanner input;
 
     // EFFECTS: Creates a Game List application
-    public GamelistConsole() {
-        games = new GameList();
+    public GameListConsole() throws IOException {
+        JsonReader reader = new JsonReader(DESTINATION);
+        games = reader.read();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
         runApp();
@@ -38,7 +43,16 @@ public class GamelistConsole {
                 processCommand(command);
             }
         }
-        System.out.println("Exiting App!");
+        JsonWriter writer = new JsonWriter(DESTINATION);
+        try {
+            writer.open();
+            writer.write(games);
+            writer.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File was not found...");
+        } finally {
+            System.out.println("Exiting App!");
+        }
     }
 
     // EFFECTS: Displays the actions available for the user.

@@ -1,9 +1,13 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // This class represents the game list.
-public class GameList {
+public class GameList implements Writable {
     private ArrayList<Game> games;
 
     public GameList() {
@@ -46,6 +50,23 @@ public class GameList {
     // EFFECTS : returns the average price of the games.
     public double avgPrice() {
         return totalPrice() / getSize();
+    }
+
+    @Override
+    // Effects: Returns the Json of a gamelist
+    public JSONObject toJson(){
+        JSONObject json = new JSONObject();
+        json.put("games", gamesToJson());
+        return json;
+    }
+
+    // Effects: Returns the Json array of all the games.
+    public JSONArray gamesToJson(){
+        JSONArray jsonArray = new JSONArray();
+        for(Game game : games){
+            jsonArray.put(game.toJson());
+        }
+        return jsonArray;
     }
 
 }

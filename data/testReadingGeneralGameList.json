@@ -1,0 +1,22 @@
+{
+  "games" : [
+    {
+      "name": "The Legend of Zelda",
+      "price": 69.99,
+      "genre": "Role-playing",
+      "score": 9
+    },
+    {
+      "name": "FIFA 23",
+      "price": 59.99,
+      "genre": "Sports",
+      "score": -1
+    },
+    {
+      "name": "Stardew Valley",
+      "price": 19.99,
+      "genre": "Role-playing",
+      "score": 10
+    }
+  ]
+}
