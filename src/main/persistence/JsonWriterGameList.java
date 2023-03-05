@@ -17,7 +17,7 @@ public class JsonWriterGameList {
 
     // EFFECTS: constructs writer to write to destination file;throws FileNotFoundException
     // if destination file cannot be opened for writing
-    public JsonWriterGameList(String destination) throws FileNotFoundException{
+    public JsonWriterGameList(String destination) throws FileNotFoundException {
         this.destination = destination;
         writer = new PrintWriter(new File(destination));
     }

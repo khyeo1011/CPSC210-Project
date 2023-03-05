@@ -82,7 +82,7 @@ public class Game implements SaveableAndReadable {
 
     @Override
     // Effects: Returns the Json of the object.
-    public JSONObject toJson(){
+    public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
         json.put("price", price);

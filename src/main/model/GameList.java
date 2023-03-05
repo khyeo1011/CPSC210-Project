@@ -18,8 +18,8 @@ public class GameList implements SaveableAndReadable {
     // MODIFIES: this.
     // EFFECTS: Adds a game to the list if the name is not present. Returns true if added, false otherwise.
     public boolean addGame(Game game) {
-        for(Game g : games){
-            if(game.getName().equals(g.getName())){
+        for (Game g : games) {
+            if (game.getName().equals(g.getName())) {
                 return false;
             }
         }
@@ -54,16 +54,16 @@ public class GameList implements SaveableAndReadable {
 
     @Override
     // Effects: Returns the Json of a gamelist
-    public JSONObject toJson(){
+    public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("games", gamesToJson());
         return json;
     }
 
     // Effects: Returns the Json array of all the games.
-    public JSONArray gamesToJson(){
+    public JSONArray gamesToJson() {
         JSONArray jsonArray = new JSONArray();
-        for(Game game : games){
+        for (Game game : games) {
             jsonArray.put(game.toJson());
         }
         return jsonArray;

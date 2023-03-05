@@ -37,7 +37,7 @@ public class JsonReaderGameList {
     private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 
-        try (Stream<String> stream = Files.lines( Paths.get(source), StandardCharsets.UTF_8)) {
+        try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
             stream.forEach(s -> contentBuilder.append(s));
         }
         return contentBuilder.toString();
@@ -45,7 +45,7 @@ public class JsonReaderGameList {
 
     // The demo was used as a template for parsing the JSON.
     // Effects: returns the parsed gamelist from the Json.
-    private GameList parseGameList(JSONObject jsonObject){
+    private GameList parseGameList(JSONObject jsonObject) {
         GameList games = new GameList();
         addGames(games, jsonObject);
         return games;
@@ -54,7 +54,7 @@ public class JsonReaderGameList {
     // The demo was used as a template to be able to add my games.
     // Modifies: games
     // Effects: parses games from the JSON object and adds them to games
-    private void addGames(GameList games, JSONObject jsonObject){
+    private void addGames(GameList games, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("games");
         for (Object json : jsonArray) {
             JSONObject nextThingy = (JSONObject) json;
@@ -65,12 +65,12 @@ public class JsonReaderGameList {
     // The demo was used as a template to be able to add one single game.
     // Modifies: games
     // Effects: parses one single from the JSON object and adds them to games
-    private void addGame(GameList games, JSONObject jsonObject){
+    private void addGame(GameList games, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         double price = jsonObject.getDouble("price");
         String genre = jsonObject.getString("genre");
         int score = jsonObject.getInt("score");
-        Game game = new Game(name,price,genre,score);
+        Game game = new Game(name, price, genre, score);
         games.addGame(game);
     }
 }
