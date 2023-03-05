@@ -2,8 +2,8 @@ package ui;
 
 import model.Game;
 import model.GameList;
-import persistence.JsonReader;
-import persistence.JsonWriter;
+import persistence.JsonReaderGameList;
+import persistence.JsonWriterGameList;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,7 +17,7 @@ public class GameListConsole {
 
     // EFFECTS: Creates a Game List application
     public GameListConsole() throws IOException {
-        JsonReader reader = new JsonReader(DESTINATION);
+        JsonReaderGameList reader = new JsonReaderGameList(DESTINATION);
         games = reader.read();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
@@ -43,9 +43,8 @@ public class GameListConsole {
                 processCommand(command);
             }
         }
-        JsonWriter writer = new JsonWriter(DESTINATION);
         try {
-            writer.open();
+            JsonWriterGameList writer = new JsonWriterGameList(DESTINATION);
             writer.write(games);
             writer.close();
         } catch (FileNotFoundException e) {

@@ -14,12 +14,12 @@ import java.util.stream.Stream;
 // Part of the implementation of this class was taken from
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 // Represents a reader that reads workroom from JSON data stored in file
-public class JsonReader {
+public class JsonReaderGameList {
     private String source;
 
     // The construction was taken from the Demo
     // EFFECTS: constructs reader to read from source file
-    public JsonReader(String source) {
+    public JsonReaderGameList(String source) {
         this.source = source;
     }
 

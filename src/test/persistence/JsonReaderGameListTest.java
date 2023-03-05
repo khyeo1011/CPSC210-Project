@@ -1,24 +1,22 @@
 package persistence;
 
 
-import model.Game;
 import model.GameList;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 // The methods for testing the classes inspired or taken from the Demo:
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
-public class JsonReaderTest extends JsonTest {
+public class JsonReaderGameListTest extends JsonTest {
 
     @Test
     // This test was taken from the Demo
     void testReaderNonExistentFile() {
-        JsonReader reader = new JsonReader("./data/nonExistentFile.json");
+        JsonReaderGameList reader = new JsonReaderGameList("./data/nonExistentFile.json");
         try {
             GameList games = reader.read();
             fail("IOException expected");
@@ -29,7 +27,7 @@ public class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderEmptyGameList() {
-        JsonReader reader = new JsonReader("./data/testReadingEmptyGameList.json");
+        JsonReaderGameList reader = new JsonReaderGameList("./data/testReadingEmptyGameList.json");
         try {
             GameList games = reader.read();
             assertEquals(0, games.getSize());
@@ -40,7 +38,7 @@ public class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderGeneralGameList() {
-        JsonReader reader = new JsonReader("./data/testReadingGeneralGameList.json");
+        JsonReaderGameList reader = new JsonReaderGameList("./data/testReadingGeneralGameList.json");
         try {
             GameList games = reader.read();
             assertEquals(3, games.getSize());

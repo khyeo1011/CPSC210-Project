@@ -2,12 +2,12 @@ package model;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import persistence.Writable;
+import persistence.SaveableAndReadable;
 
 import java.util.ArrayList;
 
 // This class represents the game list.
-public class GameList implements Writable {
+public class GameList implements SaveableAndReadable {
     private ArrayList<Game> games;
 
     public GameList() {

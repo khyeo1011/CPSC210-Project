@@ -2,10 +2,10 @@ package model;
 
 
 import org.json.JSONObject;
-import persistence.Writable;
+import persistence.SaveableAndReadable;
 
 // Represents a single video game.
-public class Game implements Writable {
+public class Game implements SaveableAndReadable {
     private String name;  // The video game's name
     private double price; // The video game's price
     private String genre; // The video game's genre
