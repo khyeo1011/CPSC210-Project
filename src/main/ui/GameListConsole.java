@@ -116,7 +116,7 @@ public class GameListConsole {
             game = new Game(name, price, genre, score);
         }
         boolean success = games.addGame(game);
-        while(!success){
+        while (!success) {
             System.out.println("Game with same name present! Please enter another name:");
             game.setName(input.next());
             success = games.addGame(game);
