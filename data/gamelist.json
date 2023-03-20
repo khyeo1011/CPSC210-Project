@@ -10,5 +10,17 @@
         "price": 10,
         "name": "Test 2",
         "genre": "Genre 2"
+    },
+    {
+        "score": -1,
+        "price": 3,
+        "name": "test03",
+        "genre": "test03"
+    },
+    {
+        "score": 4,
+        "price": 4,
+        "name": "test04",
+        "genre": "test04"
     }
 ]}
