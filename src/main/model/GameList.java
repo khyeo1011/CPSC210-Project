@@ -73,17 +73,17 @@ public class GameList implements SaveableAndReadable {
     // Modifies: this
     // Effects: deletes game at selected index
     //          throws IndexOutOfBoundsException if index is not present;
-    public void deleteGame(int index) throws IndexOutOfBoundsException{
-        if(index < 0 || index >= getSize()){
+    public void deleteGame(int index) throws IndexOutOfBoundsException {
+        if (index < 0 || index >= getSize()) {
             throw new IndexOutOfBoundsException();
         }
         games.remove(index);
     }
 
-    public List<Game> gamesInGenre(String genre){
+    public List<Game> gamesInGenre(String genre) {
         List<Game> ret = new ArrayList<>();
-        for(Game game : games){
-            if(genre.equals(game.getGenre())){
+        for (Game game : games) {
+            if (genre.equals(game.getGenre())) {
                 ret.add(game);
             }
         }
