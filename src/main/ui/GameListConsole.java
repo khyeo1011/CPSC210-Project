@@ -169,6 +169,7 @@ public class GameListConsole {
         System.out.println("\tc -> change game information");
         System.out.println("\ta -> view average price");
         System.out.println("\tt -> view total price");
+        System.out.println("\td -> delete");
     }
 
     // EFFECTS: processes user input
@@ -179,9 +180,26 @@ public class GameListConsole {
             System.out.println("Average Price: $" + games.avgPrice());
         } else if (action.equals("t")) {
             System.out.println("Total Price: $" + games.totalPrice());
+        } else if (action.equals("d")){
+            deleteGame();
         } else {
             System.out.println("Invalid Input!");
         }
+    }
+
+    // Modifies: this
+    // Effects: deletes game at selected index from user.
+    private void deleteGame(){
+        viewGames();
+        System.out.println("Select index to delete");
+        int index = input.nextInt();
+        try {
+            games.deleteGame(index);
+            System.out.println("Deleted game!");
+        } catch (IndexOutOfBoundsException e){
+            System.out.println("Invalid Index!");
+        }
+
     }
 
     // MODIFIES: this
@@ -196,7 +214,7 @@ public class GameListConsole {
             System.out.print("Please select index: ");
             index = input.nextInt();
         }
-
+        tryChanging(index);
     }
 
     private void tryChanging(int index) {

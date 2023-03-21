@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import persistence.SaveableAndReadable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 // This class represents the game list.
 public class GameList implements SaveableAndReadable {
@@ -67,6 +68,26 @@ public class GameList implements SaveableAndReadable {
             jsonArray.put(game.toJson());
         }
         return jsonArray;
+    }
+
+    // Modifies: this
+    // Effects: deletes game at selected index
+    //          throws IndexOutOfBoundsException if index is not present;
+    public void deleteGame(int index) throws IndexOutOfBoundsException{
+        if(index < 0 || index >= getSize()){
+            throw new IndexOutOfBoundsException();
+        }
+        games.remove(index);
+    }
+
+    public List<Game> gamesInGenre(String genre){
+        List<Game> ret = new ArrayList<>();
+        for(Game game : games){
+            if(genre.equals(game.getGenre())){
+                ret.add(game);
+            }
+        }
+        return ret;
     }
 
 }

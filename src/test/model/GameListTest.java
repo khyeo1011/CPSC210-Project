@@ -5,6 +5,8 @@ import exceptions.NegativePriceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameListTest {
@@ -31,7 +33,7 @@ class GameListTest {
             throw new RuntimeException(e);
         }
         try {
-            game3 = new Game("Test 3", 45,"Test 3", -1);
+            game3 = new Game("Test 3", 45, "Test 3", -1);
         } catch (NegativePriceException e) {
             throw new RuntimeException(e);
         } catch (InvalidScoreException e) {
@@ -64,18 +66,18 @@ class GameListTest {
         assertTrue(success1);
         assertFalse(success2);
         assertFalse(success3);
-        assertEquals(1,test.getSize());
-        assertEquals(game1,test.getGame(0));
+        assertEquals(1, test.getSize());
+        assertEquals(game1, test.getGame(0));
     }
 
     @Test
     void testGetSize() {
-        assertEquals(0,test.getSize());
+        assertEquals(0, test.getSize());
         test.addGame(game1);
-        assertEquals(1,test.getSize());
+        assertEquals(1, test.getSize());
         test.addGame(game2);
         test.addGame(game3);
-        assertEquals(3,test.getSize());
+        assertEquals(3, test.getSize());
     }
 
     @Test
@@ -93,7 +95,7 @@ class GameListTest {
         test.addGame(game1);
         test.addGame(game3);
         test.addGame(game2);
-        assertEquals(50,test.avgPrice());
+        assertEquals(50, test.avgPrice());
     }
 
     @Test
@@ -101,6 +103,30 @@ class GameListTest {
         test.addGame(game1);
         test.addGame(game3);
         test.addGame(game2);
-        assertEquals(150,test.totalPrice());
+        assertEquals(150, test.totalPrice());
+    }
+
+    @Test
+    void testDeleteGame() {
+        test.addGame(game1);
+        test.addGame(game2);
+        test.addGame(game3);
+        test.deleteGame(1);
+        assertEquals(2, test.getSize());
+        assertEquals(game1, test.getGame(0));
+        assertEquals(game3, test.getGame(1));
+    }
+
+    @Test
+    void testGamesInGenre() {
+        test.addGame(game1);
+        test.addGame(game2);
+        test.addGame(game3);
+        game3.setGenre("Test 1");
+        List<Game> games = test.gamesInGenre(game1.getGenre());
+        assertEquals(2,games.size());
+        assertEquals(game1,games.get(0));
+        assertEquals(game3,games.get(1));
+
     }
 }
