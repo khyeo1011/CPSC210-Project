@@ -9,6 +9,7 @@ import persistence.JsonWriterGameList;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 // Gamelist Application
@@ -169,6 +170,7 @@ public class GameListConsole {
         System.out.println("\tc -> change game information");
         System.out.println("\ta -> view average price");
         System.out.println("\tt -> view total price");
+        System.out.println("\ts -> search for games in a genre");
         System.out.println("\td -> delete");
     }
 
@@ -182,8 +184,20 @@ public class GameListConsole {
             System.out.println("Total Price: $" + games.totalPrice());
         } else if (action.equals("d")){
             deleteGame();
+        } else if (action.equals("s")){
+            searchGenre();
         } else {
             System.out.println("Invalid Input!");
+        }
+    }
+
+    private void searchGenre(){
+        System.out.println("Input the Genre Name:");
+        String genre = input.next();
+        List<Game> list = games.gamesInGenre(genre);
+        for(int i = 0 ; i < list.size(); i++){
+            System.out.println("Game #" + i + ":");
+            System.out.println(list.get(i));
         }
     }
 
