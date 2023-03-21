@@ -10,6 +10,10 @@ public class AddGameUI {
     private JTextField priceField;
     private JTextField genreField;
     private JTextField scoreField;
+    private JLabel nameLabel;
+    private JLabel priceLabel;
+    private JLabel genreLabel;
+    private JLabel scoreLabel;
 
     public AddGameUI(JFrame frame) {
         initializeAddGamePanel();

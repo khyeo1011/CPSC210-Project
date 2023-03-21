@@ -31,13 +31,9 @@ public class JsonReaderGameList {
     public GameList read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
-        try {
-            return parseGameList(jsonObject);
-        } catch (NegativePriceException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidScoreException e) {
-            throw new RuntimeException(e);
-        }
+
+        return parseGameList(jsonObject);
+
     }
 
     // This method was taken from the Demo
@@ -53,7 +49,7 @@ public class JsonReaderGameList {
 
     // The demo was used as a template for parsing the JSON.
     // Effects: returns the parsed gamelist from the Json.
-    private GameList parseGameList(JSONObject jsonObject) throws NegativePriceException, InvalidScoreException {
+    private GameList parseGameList(JSONObject jsonObject) {
         GameList games = new GameList();
         addGames(games, jsonObject);
         return games;
@@ -62,7 +58,7 @@ public class JsonReaderGameList {
     // The demo was used as a template to be able to add my games.
     // Modifies: games
     // Effects: parses games from the JSON object and adds them to games
-    private void addGames(GameList games, JSONObject jsonObject) throws NegativePriceException, InvalidScoreException {
+    private void addGames(GameList games, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("games");
         for (Object json : jsonArray) {
             JSONObject nextThingy = (JSONObject) json;
@@ -73,12 +69,19 @@ public class JsonReaderGameList {
     // The demo was used as a template to be able to add one single game.
     // Modifies: games
     // Effects: parses one single from the JSON object and adds them to games
-    private void addGame(GameList games, JSONObject jsonObject) throws NegativePriceException, InvalidScoreException {
+    private void addGame(GameList games, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         double price = jsonObject.getDouble("price");
         String genre = jsonObject.getString("genre");
         int score = jsonObject.getInt("score");
-        Game game = new Game(name, price, genre, score);
-        games.addGame(game);
+        Game game = null;
+        try {
+            game = new Game(name, price, genre, score);
+            games.addGame(game);
+        } catch (NegativePriceException e) {
+            System.out.println("Invalid info stored! Skipping this game....");
+        } catch (InvalidScoreException e) {
+            System.out.println("Invalid info stored! Skipping this game....");
+        }
     }
 }

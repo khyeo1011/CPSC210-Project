@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class JsonReaderGameListTest extends JsonTest {
 
     @Test
-    // This test was taken from the Demo
+        // This test was taken from the Demo
     void testReaderNonExistentFile() {
         JsonReaderGameList reader = new JsonReaderGameList("./data/nonExistentFile.json");
         try {
@@ -49,4 +49,29 @@ public class JsonReaderGameListTest extends JsonTest {
             fail("Couldn't read from file");
         }
     }
+
+    @Test
+    void testReaderNegativePrice() {
+        JsonReaderGameList reader = new JsonReaderGameList("./data/testReadingNegativePrice.json");
+        try {
+            GameList games = reader.read();
+            assertEquals(0, games.getSize());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    void testReaderInvalidScore() {
+        JsonReaderGameList reader = new JsonReaderGameList("./data/testReadingInvalidScore.json");
+        try {
+            GameList games = reader.read();
+            assertEquals(0, games.getSize());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
+
+
+

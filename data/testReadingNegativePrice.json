@@ -1,0 +1,10 @@
+{
+  "games" : [
+    {
+      "name": "The Legend of Zelda",
+      "price": -100,
+      "genre": "Role-playing",
+      "score": 9
+    }
+  ]
+}
