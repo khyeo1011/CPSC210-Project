@@ -196,6 +196,10 @@ public class GameListConsole {
             System.out.print("Please select index: ");
             index = input.nextInt();
         }
+
+    }
+
+    private void tryChanging(int index) {
         boolean keepGoing = true;
         while (keepGoing) {
             String command = null;
@@ -213,7 +217,6 @@ public class GameListConsole {
                 }
             }
         }
-
     }
 
     // EFFECTS: Prints the fields that can change
