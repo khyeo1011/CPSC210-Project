@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.InvalidScoreException;
+import exceptions.NegativePriceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,10 +13,62 @@ public class GameTest {
 
     @BeforeEach
     public void runBefore() {
-        test = new Game("The Legend of Zelda: Breath of the Wild",
-                76.84, "Casual");
-        testPlayed = new Game("Stardew Valley", 19.99, "Role-playing", 9);
+        try {
+            test = new Game("The Legend of Zelda: Breath of the Wild",
+                    76.84, "Casual", -1);
+        } catch (NegativePriceException e) {
+            fail("Unexpected NegativePriceException");
+        } catch (InvalidScoreException e) {
+            fail("Unexpected InvalidScoreException");
+        }
+        try {
+            testPlayed = new Game("Stardew Valley", 19.99, "Role-playing", 9);
+        } catch (NegativePriceException e) {
+            fail("Unexpected NegativePriceException");
+        } catch (InvalidScoreException e) {
+            fail("Unexpected InvalidScoreException");
+        }
     }
+
+    @Test
+    void testConstructorExceptions(){
+        Game game1 = null;
+        Game game2 = null;
+        Game game3 = null;
+
+        try {
+            game1 = new Game("Game1", 1.1, "Genre1", -1);
+        } catch (NegativePriceException e) {
+            fail("Unexpected NegativePriceException");
+        } catch (InvalidScoreException e) {
+            fail("Unexpected InvalidScoreException");
+        }
+        assertEquals("Game1", game1.getName());
+        assertEquals(1.1,game1.getPrice());
+        assertEquals("Genre1", game1.getGenre());
+        assertEquals(-1,game1.getScore());
+
+        try {
+            game2 = new Game("Game2", -1000, "Genre2", -1);
+            fail("Should have thrown exception");
+        } catch (NegativePriceException e) {
+            // Pass;
+        } catch (InvalidScoreException e) {
+            fail("Unexpected InvalidScoreException");
+        }
+
+        try{
+            game3 = new Game("Game2", 1.2, "Genre2", 100);
+            fail("Should have thrown exception");
+        } catch (NegativePriceException e) {
+            fail("Unexpected NegativePriceException");
+        } catch (InvalidScoreException e) {
+            // Pass
+        }
+
+
+    }
+
 
     @Test
     void testConstructor() {
@@ -49,10 +103,19 @@ public class GameTest {
 
     @Test
     void testSetPrice() {
-        test.setPrice(100.20);
+        try {
+            test.setPrice(100.20);
+        } catch (NegativePriceException e) {
+            fail("Unexpected NegativePriceException");
+        }
         assertEquals(100.20, test.getPrice());
-        test.setPrice(12.34);
-        assertEquals(12.34, test.getPrice());
+        try {
+            test.setPrice(-12.34);
+            fail("Should throw exception");
+        } catch (NegativePriceException e) {
+            //Pass
+        }
+        assertEquals(100.20, test.getPrice());
     }
 
     @Test
@@ -64,9 +127,25 @@ public class GameTest {
 
     @Test
     void testSetScore() {
-        test.setScore(10);
+        try {
+            test.setScore(10);
+        } catch (InvalidScoreException e) {
+            fail("Unexpected InvalidScoreException");
+        }
         assertEquals(10, test.getScore());
-        test.setScore(4);
-        assertEquals(4, test.getScore());
+        try {
+            test.setScore(-4);
+            fail("Should throw exception");
+        } catch (InvalidScoreException e) {
+            // Pass
+        }
+        assertEquals(10, test.getScore());
+        try {
+            test.setScore(100);
+            fail("Should throw exception");
+        } catch (InvalidScoreException e) {
+            // Pass
+        }
+        assertEquals(10, test.getScore());
     }
 }

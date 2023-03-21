@@ -1,6 +1,8 @@
 package persistence;
 
 
+import exceptions.InvalidScoreException;
+import exceptions.NegativePriceException;
 import model.Game;
 import model.GameList;
 import org.junit.jupiter.api.Test;
@@ -45,7 +47,7 @@ class JsonWriterGameListTest extends JsonTest {
     }
 
     @Test
-    void testWriterGeneralGameList() {
+    void testWriterGeneralGameList() throws NegativePriceException, InvalidScoreException {
         try {
             GameList games = new GameList();
             games.addGame(new Game("Half-life",4.99,"First-person shooter",-1));

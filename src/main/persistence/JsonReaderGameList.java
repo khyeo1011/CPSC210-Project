@@ -1,5 +1,7 @@
 package persistence;
 
+import exceptions.InvalidScoreException;
+import exceptions.NegativePriceException;
 import model.Game;
 import model.GameList;
 import org.json.JSONArray;
@@ -29,7 +31,13 @@ public class JsonReaderGameList {
     public GameList read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
-        return parseGameList(jsonObject);
+        try {
+            return parseGameList(jsonObject);
+        } catch (NegativePriceException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidScoreException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // This method was taken from the Demo
@@ -45,7 +53,7 @@ public class JsonReaderGameList {
 
     // The demo was used as a template for parsing the JSON.
     // Effects: returns the parsed gamelist from the Json.
-    private GameList parseGameList(JSONObject jsonObject) {
+    private GameList parseGameList(JSONObject jsonObject) throws NegativePriceException, InvalidScoreException {
         GameList games = new GameList();
         addGames(games, jsonObject);
         return games;
@@ -54,7 +62,7 @@ public class JsonReaderGameList {
     // The demo was used as a template to be able to add my games.
     // Modifies: games
     // Effects: parses games from the JSON object and adds them to games
-    private void addGames(GameList games, JSONObject jsonObject) {
+    private void addGames(GameList games, JSONObject jsonObject) throws NegativePriceException, InvalidScoreException {
         JSONArray jsonArray = jsonObject.getJSONArray("games");
         for (Object json : jsonArray) {
             JSONObject nextThingy = (JSONObject) json;
@@ -65,7 +73,7 @@ public class JsonReaderGameList {
     // The demo was used as a template to be able to add one single game.
     // Modifies: games
     // Effects: parses one single from the JSON object and adds them to games
-    private void addGame(GameList games, JSONObject jsonObject) {
+    private void addGame(GameList games, JSONObject jsonObject) throws NegativePriceException, InvalidScoreException {
         String name = jsonObject.getString("name");
         double price = jsonObject.getDouble("price");
         String genre = jsonObject.getString("genre");

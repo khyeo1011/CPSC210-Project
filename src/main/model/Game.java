@@ -1,6 +1,8 @@
 package model;
 
 
+import exceptions.InvalidScoreException;
+import exceptions.NegativePriceException;
 import org.json.JSONObject;
 import persistence.SaveableAndReadable;
 
@@ -11,19 +13,18 @@ public class Game implements SaveableAndReadable {
     private String genre; // The video game's genre
     private int score;   // The video game's score, out of 10. -1 represents a game that has yet not been played.
 
-    // REQUIRES: 0 <= price
-    // EFFECTS: Creates a Game, with its name, price in CAD, and a broad genre.
-    public Game(String name, double price, String genre) {
-        this.name = name;
-        this.price = price;
-        this.genre = genre;
-        this.score = -1;
-    }
 
-    // REQUIRES: 0 <= score <= 10
-    //           0 <= price
-    // EFFECTS: Creates a game that has been played, with the score.
-    public Game(String name, double price, String genre, int score) {
+    // EFFECTS: Creates a Game, with its name, price, broad genre, with the score (-1 for unplayed).
+    //          throws NegativePriceException if the price is negative, otherwise
+    //          if !(0 <= score <= 10 or score == -1), throws InvalidScoreException;
+    public Game(String name, double price, String genre, int score)
+            throws NegativePriceException, InvalidScoreException {
+        if (price < 0) {
+            throw new NegativePriceException();
+        }
+        if (!((score >= 0 && score <= 10) || score == -1)) {
+            throw new InvalidScoreException();
+        }
         this.name = name;
         this.price = price;
         this.genre = genre;
@@ -34,6 +35,7 @@ public class Game implements SaveableAndReadable {
     public String getName() {
         return name;
     }
+
 
     public double getPrice() {
         return price;
@@ -52,8 +54,11 @@ public class Game implements SaveableAndReadable {
         this.name = name;
     }
 
-    //REQUIRES: 0 <= price
-    public void setPrice(double price) {
+    // Effects: sets the price, throws NegativePriceException if the price is negative
+    public void setPrice(double price) throws NegativePriceException {
+        if (price < 0) {
+            throw new NegativePriceException();
+        }
         this.price = price;
     }
 
@@ -61,7 +66,12 @@ public class Game implements SaveableAndReadable {
         this.genre = genre;
     }
 
-    public void setScore(int score) {
+    // Effects: sets the score,
+    //          if !(0 <= score <= 10 or score == -1), throws InvalidScoreException;
+    public void setScore(int score) throws InvalidScoreException {
+        if (!((score >= 0 && score <= 10) || score == -1)) {
+            throw new InvalidScoreException();
+        }
         this.score = score;
     }
 

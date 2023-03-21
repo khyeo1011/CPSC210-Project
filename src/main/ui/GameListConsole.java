@@ -1,5 +1,7 @@
 package ui;
 
+import exceptions.InvalidScoreException;
+import exceptions.NegativePriceException;
 import model.Game;
 import model.GameList;
 import persistence.JsonReaderGameList;
@@ -104,22 +106,38 @@ public class GameListConsole {
     // MODIFIES: this
     // EFFECTS: adds a game to the list.
     private void addGame(String name, double price, String genre, int score) {
-        Game game;
+        Game game = null;
         if (score == -1) {
-            game = new Game(name, price, genre);
+            try {
+                game = new Game(name, price, genre, -1);
+            } catch (NegativePriceException e) {
+                throw new RuntimeException(e);
+            } catch (InvalidScoreException e) {
+                throw new RuntimeException(e);
+            }
         } else {
             while (!((score >= 0 && score <= 10) || score == -1)) {
-                System.out.println("Invalid input! Try again");
-                System.out.print("Write the score of the game (-1 for unplayed): ");
+                try {
+                    game = new Game(name, price, genre, score);
+                } catch (NegativePriceException e) {
+                    throw new RuntimeException(e);
+                } catch (InvalidScoreException e) {
+                    System.out.println("Invalid Input!");
+                    System.out.print("Write the score of the game (-1 for unplayed): ");
+                }
                 score = input.nextInt();
             }
-            game = new Game(name, price, genre, score);
         }
+        checkDuplicate(game);
+
+    }
+
+    // Effects: Checks for duplicate name games
+    private void checkDuplicate(Game game) {
         boolean success = games.addGame(game);
-        while (!success) {
-            System.out.println("Game with same name present! Please enter another name:");
-            game.setName(input.next());
-            success = games.addGame(game);
+        if (!success) {
+            System.out.println("Game with same name present! Please try again:");
+            return;
         }
         System.out.println("Game with description: ");
         System.out.println(game);
@@ -186,7 +204,13 @@ public class GameListConsole {
             if (command.equals("q")) {
                 keepGoing = false;
             } else {
-                processFields(command, index);
+                try {
+                    processFields(command, index);
+                } catch (NegativePriceException e) {
+                    System.out.println("Invalid Price!");
+                } catch (InvalidScoreException e) {
+                    System.out.println("Invalid Score!");
+                }
             }
         }
 
@@ -204,7 +228,7 @@ public class GameListConsole {
 
     // MODIFIES: this
     // EFFECTS: processes user input and changes game info.
-    private void processFields(String command, int index) {
+    private void processFields(String command, int index) throws NegativePriceException, InvalidScoreException {
         if (command.equals("n")) {
             System.out.print("Input the new name:");
             games.getGame(index).setName(input.next());

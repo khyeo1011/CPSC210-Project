@@ -22,5 +22,11 @@
         "price": 4,
         "name": "test04",
         "genre": "test04"
+    },
+    {
+        "score": -1,
+        "price": 10,
+        "name": "game05",
+        "genre": "genre05"
     }
 ]}

@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.InvalidScoreException;
+import exceptions.NegativePriceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,9 +16,27 @@ class GameListTest {
     @BeforeEach
     void setUp() {
         test = new GameList();
-        game1 = new Game("Test 1", 15, "Test 1");
-        game2 = new Game("Test 2", 90, "Test 2", 7);
-        game3 = new Game("Test 3", 45,"Test 3");
+        try {
+            game1 = new Game("Test 1", 15, "Test 1", -1);
+        } catch (NegativePriceException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidScoreException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            game2 = new Game("Test 2", 90, "Test 2", 7);
+        } catch (NegativePriceException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidScoreException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            game3 = new Game("Test 3", 45,"Test 3", -1);
+        } catch (NegativePriceException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidScoreException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
@@ -33,7 +53,14 @@ class GameListTest {
     void testAddGameDuplicate() {
         boolean success1 = test.addGame(game1);
         boolean success2 = test.addGame(game1);
-        boolean success3 = test.addGame(new Game("Test 1", 40, "Test 1"));
+        boolean success3 = false;
+        try {
+            success3 = test.addGame(new Game("Test 1", 40, "Test 1", -1));
+        } catch (NegativePriceException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidScoreException e) {
+            throw new RuntimeException(e);
+        }
         assertTrue(success1);
         assertFalse(success2);
         assertFalse(success3);
