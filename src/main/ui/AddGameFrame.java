@@ -95,6 +95,7 @@ public class AddGameFrame extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setSize(400, 200);
         setLayout(new GridLayout(5, 1));
+        setLocationRelativeTo(null);
     }
 
     private void initializeNameField() {

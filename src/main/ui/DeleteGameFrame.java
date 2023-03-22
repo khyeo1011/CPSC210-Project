@@ -46,6 +46,7 @@ public class DeleteGameFrame extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setSize(400, 300);
         setLayout(new GridLayout(2, 1));
+        setLocationRelativeTo(null);
     }
 
     @Override

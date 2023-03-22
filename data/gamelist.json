@@ -1,26 +1,14 @@
 {"games": [
     {
         "score": -1,
-        "price": 19.99,
-        "name": "Test 1",
-        "genre": "Genre 1"
+        "price": 5,
+        "name": "test01",
+        "genre": "12.24"
     },
     {
-        "score": 8,
-        "price": 10,
-        "name": "Test 2",
-        "genre": "Genre 2"
-    },
-    {
-        "score": -1,
-        "price": 3,
-        "name": "test03",
-        "genre": "test03"
-    },
-    {
-        "score": 4,
-        "price": 4,
-        "name": "test04",
-        "genre": "test04"
+        "score": 6,
+        "price": 15,
+        "name": "test02",
+        "genre": "20.02"
     }
 ]}
