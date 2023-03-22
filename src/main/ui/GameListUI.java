@@ -22,6 +22,7 @@ public class GameListUI extends JFrame {
     private JButton loadButton;
     private JButton avgButton;
     private JButton totalButton;
+    private ViewFrame viewFrame;
     private GameList games;
 
     public GameListUI() {
@@ -29,12 +30,74 @@ public class GameListUI extends JFrame {
         initializeFrames();
         initializeAddButton();
         initializeDeleteButton();
-        initializeSaveButton();
-        initializeLoadButton();
+        initializeViewButton();
+        initializeGraphButton();
         initializeAvgButton();
         initializeTotalButton();
+        initializeSaveButton();
+        initializeLoadButton();
+        initializeSaveAsButton();
+        initializeLoadFromButton();
         this.setVisible(true);
 
+    }
+
+    private void initializeGraphButton() {
+        JButton button = new JButton("Graph");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "WIP");
+            }
+        });
+        add(button);
+    }
+
+    private void initializeLoadFromButton() {
+        JButton button = new JButton("Load From...");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String input = JOptionPane.showInputDialog(null, "Input the file name");
+                if (input != null && input.length() > 0) {
+                    load("./data/" + input + ".json");
+                }
+            }
+        });
+        add(button);
+    }
+
+    private void initializeSaveAsButton() {
+        JButton button = new JButton("Save as...");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String input = JOptionPane.showInputDialog(null, "Input the file name");
+                if (input != null) {
+                    if (input.length() <= 0) {
+                        JOptionPane.showMessageDialog(null, "Input the destination!", "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    save("./data/" + input + ".json");
+                }
+
+            }
+        });
+        add(button);
+    }
+
+    private void initializeViewButton() {
+        viewFrame = new ViewFrame(games);
+        JButton viewGameButton = new JButton("View Games");
+        viewGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewFrame.setVisible(true);
+                viewFrame.updateList();
+            }
+        });
+        add(viewGameButton);
     }
 
     private void initializeTotalButton() {
@@ -42,13 +105,13 @@ public class GameListUI extends JFrame {
         totalButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(games.getSize() == 0){
-                    JOptionPane.showMessageDialog(null,"No Games!", "Total Price",
+                if (games.getSize() == 0) {
+                    JOptionPane.showMessageDialog(null, "No Games!", "Total Price",
                             JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 double total = games.totalPrice();
-                JOptionPane.showMessageDialog(null,"Total is: " + total, "Total Price",
+                JOptionPane.showMessageDialog(null, "Total is: " + total, "Total Price",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         });
@@ -60,13 +123,13 @@ public class GameListUI extends JFrame {
         avgButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(games.getSize() == 0){
-                    JOptionPane.showMessageDialog(null,"No Games!", "Average Price",
+                if (games.getSize() == 0) {
+                    JOptionPane.showMessageDialog(null, "No Games!", "Average Price",
                             JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 double avg = games.avgPrice();
-                JOptionPane.showMessageDialog(null,"Average is: " + avg, "Average Price",
+                JOptionPane.showMessageDialog(null, "Average is: " + avg, "Average Price",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         });
@@ -78,21 +141,26 @@ public class GameListUI extends JFrame {
         loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JsonReaderGameList reader = new JsonReaderGameList(DEFAULT_DESTINATION);
-                try {
-                    games = reader.read();
-                    addGameFrame = new AddGameFrame(games);
-                    deleteGameFrame = new DeleteGameFrame(games);
-                    JOptionPane.showMessageDialog(null,"Loading Successful!",
-                            "Loading Successful!",
-                            JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null,"Failed to load", "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
+                load(DEFAULT_DESTINATION);
             }
         });
         add(loadButton);
+    }
+
+    private void load(String source) {
+        JsonReaderGameList reader = new JsonReaderGameList(source);
+        try {
+            games = reader.read();
+            addGameFrame = new AddGameFrame(games);
+            deleteGameFrame = new DeleteGameFrame(games);
+            viewFrame = new ViewFrame(games);
+            JOptionPane.showMessageDialog(null, "Loading Successful!",
+                    "Loading Successful!",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Failed to load", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void initializeSaveButton() {
@@ -100,25 +168,29 @@ public class GameListUI extends JFrame {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(games.getSize() == 0){
-                    JOptionPane.showMessageDialog(null,"No Games to save!", "Save",
-                            JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                try {
-                    JsonWriterGameList writer = new JsonWriterGameList(DEFAULT_DESTINATION);
-                    writer.write(games);
-                    writer.close();
-                    JOptionPane.showMessageDialog(null,"Save Successful!", "Save Successful!",
-                            JOptionPane.INFORMATION_MESSAGE);
-                } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(null,"Failed to open destination", "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-
+                save(DEFAULT_DESTINATION);
             }
         });
         add(saveButton);
+    }
+
+    private void save(String destination) {
+        if (games.getSize() == 0) {
+            JOptionPane.showMessageDialog(null, "No Games to save!", "Save",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            JsonWriterGameList writer = new JsonWriterGameList(destination);
+            writer.write(games);
+            writer.close();
+            JOptionPane.showMessageDialog(null, "Save Successful!", "Save Successful!",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Failed to open destination", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
 
@@ -145,7 +217,6 @@ public class GameListUI extends JFrame {
         });
         add(addGameButton);
     }
-
 
 
     private void initializeFrames() {

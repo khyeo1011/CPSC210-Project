@@ -80,6 +80,8 @@ public class GameList implements SaveableAndReadable {
         games.remove(index);
     }
 
+
+    // Effects: Returns List with games in the same genre
     public List<Game> gamesInGenre(String genre) {
         List<Game> ret = new ArrayList<>();
         for (Game game : games) {

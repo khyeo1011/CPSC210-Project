@@ -9,10 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.NumberFormat;
 
 public class AddGameFrame extends JFrame implements ActionListener {
-    private final String[] scores = {"Un-played", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+    public static final String[] SCORES = {"Un-played", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
     private JTextField nameField;
     private JTextField priceField;
     private JTextField genreField;
@@ -56,11 +55,11 @@ public class AddGameFrame extends JFrame implements ActionListener {
     private void initializeScoreField() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
-        JLabel score = new JLabel("Genre:");
+        JLabel score = new JLabel("Score:");
         score.setVerticalAlignment(JLabel.CENTER);
         score.setHorizontalAlignment(JLabel.CENTER);
         panel.add(score);
-        scoreField = new JComboBox(scores);
+        scoreField = new JComboBox(SCORES);
         panel.add(scoreField);
         add(panel);
     }

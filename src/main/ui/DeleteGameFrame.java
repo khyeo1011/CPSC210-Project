@@ -53,7 +53,7 @@ public class DeleteGameFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == gameIndices) {
             if (gameIndices.getSelectedItem() != null) {
-                gameName.setText(games.getGame((Integer) gameIndices.getSelectedItem()).getName());
+                gameName.setText(games.getGame(gameIndices.getSelectedIndex()).getName());
             }
         }
         if (e.getSource() == button) {
@@ -64,7 +64,7 @@ public class DeleteGameFrame extends JFrame implements ActionListener {
                 if (JOptionPane.showConfirmDialog(null,
                         "Are you sure you want to delete this game?",
                         "Confirmation", JOptionPane.YES_NO_OPTION) == 0) {
-                    games.deleteGame((Integer) gameIndices.getSelectedItem());
+                    games.deleteGame(gameIndices.getSelectedIndex());
                     JOptionPane.showMessageDialog(null, "Game Deleted!", "Deleted",
                             JOptionPane.INFORMATION_MESSAGE);
                     refreshComboBox();
@@ -76,7 +76,7 @@ public class DeleteGameFrame extends JFrame implements ActionListener {
     public void refreshComboBox() {
         gameIndices.removeAllItems();
         for (int i = 0; i < games.getSize(); i++) {
-            gameIndices.addItem(i);
+            gameIndices.addItem((i + ":" + games.getGame(i).getName()));
         }
         gameIndices.setSelectedItem(null);
         gameName.setText("");
