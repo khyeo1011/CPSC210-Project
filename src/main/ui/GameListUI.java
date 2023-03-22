@@ -55,12 +55,10 @@ public class GameListUI extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setSize(WIDTH, HEIGHT);
-        setLayout(new GridLayout(4,2));
+        setLayout(new GridLayout(4, 2));
         addGameFrame = new AddGameFrame(games);
         deleteGameFrame = new DeleteGameFrame(games);
     }
-
-
 
 
     public static void main(String[] args) {

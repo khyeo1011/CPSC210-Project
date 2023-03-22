@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 
-public class AddGameFrame extends JFrame implements ActionListener{
+public class AddGameFrame extends JFrame implements ActionListener {
     private final String[] scores = {"Un-played", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
     private JTextField nameField;
     private JTextField priceField;
@@ -33,7 +33,7 @@ public class AddGameFrame extends JFrame implements ActionListener{
 
     private void initializeSubmitButton() {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1,2));
+        panel.setLayout(new GridLayout(1, 2));
         clear = new JButton("Clear");
         clear.addActionListener(this);
         submit = new JButton("Add Game!");
@@ -111,10 +111,10 @@ public class AddGameFrame extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==clear){
+        if (e.getSource() == clear) {
             clearFields();
         }
-        if(e.getSource()==submit){
+        if (e.getSource() == submit) {
             String name = new String(nameField.getText());
             String price = priceField.getText();
             String genre = new String(priceField.getText());
@@ -123,22 +123,25 @@ public class AddGameFrame extends JFrame implements ActionListener{
             try {
                 success = addGame(name, Double.parseDouble(price), genre,
                         score.equals("Un-played") ? -1 : Integer.parseInt(score));
-            } catch(NumberFormatException exc){
-                JOptionPane.showMessageDialog(null, "Price is not a number!","Number",
+            } catch (NumberFormatException exc) {
+                JOptionPane.showMessageDialog(null, "Price is not a number!", "Number",
                         JOptionPane.ERROR_MESSAGE);
             }
-            if(!success){
-                JOptionPane.showMessageDialog(null,
-                        "Adding Game Failed... There might be a game with the same name or an error",
-                        "Fail", JOptionPane.ERROR_MESSAGE);
-            }
-            else{
-                JOptionPane.showMessageDialog(null,"Game Added Successfully!",
-                        "Game added", JOptionPane.INFORMATION_MESSAGE);
-                clearFields();
-            }
+            printMessage(success);
 
 
+        }
+    }
+
+    private void printMessage(boolean success) {
+        if (!success) {
+            JOptionPane.showMessageDialog(null,
+                    "Adding Game Failed... There might be a game with the same name or an error",
+                    "Fail", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Game Added Successfully!",
+                    "Game added", JOptionPane.INFORMATION_MESSAGE);
+            clearFields();
         }
     }
 
@@ -146,12 +149,12 @@ public class AddGameFrame extends JFrame implements ActionListener{
         Game game;
         boolean success = false;
         try {
-            game = new Game(name,price,genre,score);
+            game = new Game(name, price, genre, score);
             success = games.addGame(game);
             System.out.println(game);
         } catch (NegativePriceException e) {
             JOptionPane.showMessageDialog(null, "Invalid Price!",
-                    "Invalid Price!",JOptionPane.ERROR_MESSAGE);
+                    "Invalid Price!", JOptionPane.ERROR_MESSAGE);
         } catch (InvalidScoreException e) {
             throw new RuntimeException(e);
         }

@@ -182,20 +182,20 @@ public class GameListConsole {
             System.out.println("Average Price: $" + games.avgPrice());
         } else if (action.equals("t")) {
             System.out.println("Total Price: $" + games.totalPrice());
-        } else if (action.equals("d")){
+        } else if (action.equals("d")) {
             deleteGame();
-        } else if (action.equals("s")){
+        } else if (action.equals("s")) {
             searchGenre();
         } else {
             System.out.println("Invalid Input!");
         }
     }
 
-    private void searchGenre(){
+    private void searchGenre() {
         System.out.println("Input the Genre Name:");
         String genre = input.next();
         List<Game> list = games.gamesInGenre(genre);
-        for(int i = 0 ; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             System.out.println("Game #" + i + ":");
             System.out.println(list.get(i));
         }
@@ -203,14 +203,14 @@ public class GameListConsole {
 
     // Modifies: this
     // Effects: deletes game at selected index from user.
-    private void deleteGame(){
+    private void deleteGame() {
         viewGames();
         System.out.println("Select index to delete");
         int index = input.nextInt();
         try {
             games.deleteGame(index);
             System.out.println("Deleted game!");
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Invalid Index!");
         }
 

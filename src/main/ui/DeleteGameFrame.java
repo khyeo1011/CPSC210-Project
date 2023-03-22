@@ -33,7 +33,7 @@ public class DeleteGameFrame extends JFrame implements ActionListener {
         gameIndices.addActionListener(this);
         gameName = new JTextField();
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1,2));
+        panel.setLayout(new GridLayout(1, 2));
         gameName.setEditable(false);
         panel.add(gameIndices);
         panel.add(gameName);
@@ -50,20 +50,21 @@ public class DeleteGameFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==gameIndices){
-            if(gameIndices.getSelectedItem() != null){
+        if (e.getSource() == gameIndices) {
+            if (gameIndices.getSelectedItem() != null) {
                 gameName.setText(games.getGame((Integer) gameIndices.getSelectedItem()).getName());
             }
         }
-        if(e.getSource()==button){
-            if(gameIndices.getSelectedItem() == null){
-                JOptionPane.showMessageDialog(null,"Please select a game",
+        if (e.getSource() == button) {
+            if (gameIndices.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(null, "Please select a game",
                         "No Game Selected", JOptionPane.ERROR_MESSAGE);
-            } else{
-                if(JOptionPane.showConfirmDialog(null,"Are you sure you want to delete this game?"
-                        , "Confirmation", JOptionPane.YES_NO_OPTION) == 0){
+            } else {
+                if (JOptionPane.showConfirmDialog(null,
+                        "Are you sure you want to delete this game?",
+                        "Confirmation", JOptionPane.YES_NO_OPTION) == 0) {
                     games.deleteGame((Integer) gameIndices.getSelectedItem());
-                    JOptionPane.showMessageDialog(null, "Game Deleted!","Deleted",
+                    JOptionPane.showMessageDialog(null, "Game Deleted!", "Deleted",
                             JOptionPane.INFORMATION_MESSAGE);
                     refreshComboBox();
                 }
@@ -73,7 +74,7 @@ public class DeleteGameFrame extends JFrame implements ActionListener {
 
     public void refreshComboBox() {
         gameIndices.removeAllItems();
-        for(int i = 0; i < games.getSize(); i++){
+        for (int i = 0; i < games.getSize(); i++) {
             gameIndices.addItem(i);
         }
         gameIndices.setSelectedItem(null);
