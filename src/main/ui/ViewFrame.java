@@ -65,6 +65,7 @@ public class ViewFrame extends JFrame implements ActionListener {
         initializeGenreField();
         initializeScoreField();
         changeFrame.add(changeButton);
+        changeFrame.setLocation(GameListUI.WIDTH / 3 + 10, 0);
         changeFrame.pack();
         changeFrame.setVisible(true);
     }
@@ -151,7 +152,7 @@ public class ViewFrame extends JFrame implements ActionListener {
         nameField.setText(game.getName());
         genreField.setText(game.getGenre());
         priceField.setText(Double.toString(game.getPrice()));
-        scoreField.setSelectedItem((game.getScore() == -1) ? AddGameFrame.SCORES[0] : Integer.toString(game.getScore()));
+        scoreField.setSelectedItem(game.getScore() == -1 ? AddGameFrame.SCORES[0] : Integer.toString(game.getScore()));
     }
 
 
@@ -182,6 +183,7 @@ public class ViewFrame extends JFrame implements ActionListener {
         String originalGenre = game.getGenre();
         game.setGenre(genre);
         game.setName(name);
+
         try {
             game.setPrice(Double.parseDouble(price));
         } catch (NumberFormatException exc) {
@@ -197,14 +199,17 @@ public class ViewFrame extends JFrame implements ActionListener {
             game.setName(originalName);
             return;
         }
+        trySetScore(score, game);
+        JOptionPane.showMessageDialog(null, "Successfully Changed!", "Success",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void trySetScore(String score, Game game) {
         try {
             game.setScore(score.equals("Un-played") ? -1 : Integer.parseInt(score));
             System.out.println(game.getScore());
         } catch (InvalidScoreException ex) {
             throw new RuntimeException(ex);
         }
-
-        JOptionPane.showMessageDialog(null, "Successfully Changed!", "Success",
-                JOptionPane.INFORMATION_MESSAGE);
     }
 }
