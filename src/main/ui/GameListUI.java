@@ -3,86 +3,69 @@ package ui;
 import model.GameList;
 
 import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 // Gamelist Application
-public class GameListUI extends JFrame{
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 600;
+public class GameListUI extends JFrame {
+    public static final int WIDTH = 400;
+    public static final int HEIGHT = 400;
     private static final String DESTINATION = "./data/gamelist.json";
+    private AddGameFrame addGameFrame;
+    private DeleteGameFrame deleteGameFrame;
     private GameList games;
-    private JPanel addAndDeletePane;
-    private JPanel addPanel;
-    private JComboBox score;
-    private JTextField name;
-    private JTextField genre;
-    private JFormattedTextField price;
-    public static final String scores[] = {"Un-played", "0", "1","2","3","4","5","6","7","8","9"};
 
     public GameListUI() {
-        initializeFrame();
-        initializeTopPane();
-
-    }
-
-    void initializeTopPane(){
-        addAndDeletePane = new JPanel();
-        addAndDeletePane.setLayout(new GridLayout(1,2));
-        addAndDeletePane.setBorder(new LineBorder(Color.LIGHT_GRAY));
-        addGamePane();
-        addDeletePane();
-        add(addAndDeletePane);
-    }
-
-    private void addGamePane() {
-        addPanel = new JPanel();
-        addPanel.setLayout(new BoxLayout(addPanel,BoxLayout.Y_AXIS));
-        addNameField();
-        addPriceField();
-        addGenreField();
-        addScoreField();
-        addAndDeletePane.add(addPanel);
-    }
-
-    private void addNameField() {
-        JLabel label = new JLabel("Name");
-        name = new JTextField();
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        panel.add(label);
-        panel.add(name);
-        addPanel.add(panel);
-    }
-
-    private void addPriceField() {
-    }
-
-    private void addGenreField() {
-
-    }
-
-    private void addScoreField() {
-
-    }
-
-    private void addDeletePane() {
-
-    }
-
-
-    private void initializeFrame() {
-        this.setTitle("Game List Application");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
-        this.setSize(WIDTH, HEIGHT);
-        setLayout(new GridLayout(3,1));
+        games = new GameList();
+        initializeFrames();
+        initializeAddButton();
+        initializeDeleteButton();
         this.setVisible(true);
 
     }
 
+    private void initializeDeleteButton() {
+        JButton deleteGameButton = new JButton("Delete Game");
+        deleteGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteGameFrame.setVisible(true);
+                deleteGameFrame.refreshComboBox();
+            }
+        });
+        add(deleteGameButton);
+    }
+
+
+    private void initializeAddButton() {
+        JButton addGameButton = new JButton("Add Game");
+        addGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addGameFrame.setVisible(true);
+            }
+        });
+        add(addGameButton);
+    }
+
+
+    private void initializeFrames() {
+        this.setTitle("Game List Application");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
+        this.setSize(WIDTH, HEIGHT);
+        setLayout(new GridLayout(4,2));
+        addGameFrame = new AddGameFrame(games);
+        deleteGameFrame = new DeleteGameFrame(games);
+    }
+
+
+
+
     public static void main(String[] args) {
         new GameListUI();
     }
+
 
 }
