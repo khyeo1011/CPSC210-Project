@@ -124,9 +124,37 @@ class GameListTest {
         test.addGame(game3);
         game3.setGenre("Test 1");
         List<Game> games = test.gamesInGenre(game1.getGenre());
-        assertEquals(2,games.size());
-        assertEquals(game1,games.get(0));
-        assertEquals(game3,games.get(1));
+        assertEquals(2, games.size());
+        assertEquals(game1, games.get(0));
+        assertEquals(game3, games.get(1));
 
+    }
+
+    @Test
+    void testDeleteIndexNegative() {
+        test.addGame(game1);
+        try {
+            test.deleteGame(-1);
+            fail("Should throw exception");
+        } catch (IndexOutOfBoundsException e) {
+            // pass
+        }
+        assertEquals(game1, test.getGame(0));
+        assertEquals(1,test.getSize());
+    }
+
+    @Test
+    void testDeleteIndexAboveSize(){
+        test.addGame(game1);
+        test.addGame(game2);
+
+        try {
+            test.deleteGame(4012);
+            fail("Should throw exception");
+        } catch (IndexOutOfBoundsException e) {
+            // pass
+        }
+        assertEquals(game1, test.getGame(0));
+        assertEquals(2,test.getSize());
     }
 }

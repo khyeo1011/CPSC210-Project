@@ -147,5 +147,13 @@ public class GameTest {
             // Pass
         }
         assertEquals(10, test.getScore());
+
+
+        try {
+            test.setScore(-1);
+        } catch (InvalidScoreException e) {
+            fail("Unexpected InvalidScoreException");
+        }
+        assertEquals(-1, test.getScore());
     }
 }
