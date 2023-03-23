@@ -22,5 +22,11 @@
         "price": 4,
         "name": "test04",
         "genre": "04"
+    },
+    {
+        "score": 1,
+        "price": 12,
+        "name": "test04genre",
+        "genre": "04"
     }
 ]}
