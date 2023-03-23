@@ -11,21 +11,26 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.*;
-
+import java.util.List;
 
 public class ViewFrame extends JFrame implements ActionListener {
     private GameList games;
     private DefaultListModel gameList;
+    private DefaultListModel filterGameList;
     private JList<String> list;
+    private JList<String> filterList;
+    private JScrollPane filterPane;
     private JScrollPane scrollPane;
     private JInternalFrame listFrame;
     private JInternalFrame changeFrame;
+    private JInternalFrame filterFrame;
     private JDesktopPane desktop;
     private JButton changeButton;
     private JTextField nameField;
     private JTextField priceField;
     private JTextField genreField;
     private JComboBox scoreField;
+    private JTextField searchGenreField;
     private int selectedIndex;
 
     public ViewFrame(GameList games) {
@@ -50,9 +55,28 @@ public class ViewFrame extends JFrame implements ActionListener {
         desktop = new JDesktopPane();
         initializeListFrame();
         initializeChangeFrame();
+        initializeFilterFrame();
         this.setContentPane(desktop);
         desktop.add(listFrame);
         desktop.add(changeFrame);
+        desktop.add(filterFrame);
+    }
+
+    private void initializeFilterFrame() {
+        filterGameList = new DefaultListModel();
+        filterList = new JList<>(filterGameList);
+        filterList.setBorder(new EmptyBorder(10, 10, 10, 10));
+        filterPane = new JScrollPane(filterList);
+        filterPane.setPreferredSize(new Dimension(GameListUI.WIDTH * 2 / 3, GameListUI.HEIGHT / 3));
+        searchGenreField = new JTextField();
+        searchGenreField.addActionListener(this);
+        filterFrame = new JInternalFrame("Search for Game Names in Genre", true, false);
+        filterFrame.setLayout(new BorderLayout());
+        filterFrame.add(searchGenreField, BorderLayout.NORTH);
+        filterFrame.add(filterPane, BorderLayout.CENTER);
+        filterFrame.setLocation(0, GameListUI.HEIGHT / 3 + 30);
+        filterFrame.pack();
+        filterFrame.setVisible(true);
     }
 
     private void initializeChangeFrame() {
@@ -158,12 +182,16 @@ public class ViewFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (selectedIndex == -1) {
-            JOptionPane.showMessageDialog(null, "You have not selected any game!", "Error",
-                    JOptionPane.ERROR_MESSAGE);
+        if (e.getSource() == searchGenreField) {
+            searchGames(searchGenreField.getText());
             return;
         }
         if (e.getSource() == changeButton) {
+            if (selectedIndex == -1) {
+                JOptionPane.showMessageDialog(null, "You have not selected any game!", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             String name = nameField.getText();
             String price = priceField.getText();
             String genre = genreField.getText();
@@ -174,6 +202,19 @@ public class ViewFrame extends JFrame implements ActionListener {
                 changeGame(name, price, genre, score);
             }
             updateList();
+        }
+
+    }
+
+    private void searchGames(String text) {
+        List<Game> gamesInGenre = games.gamesInGenre(text);
+        filterGameList.removeAllElements();
+        if (gamesInGenre.size() == 0) {
+            JOptionPane.showMessageDialog(null, "No Games Found!", "None", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        for (int i = 0; i < gamesInGenre.size(); i++) {
+            filterGameList.addElement("• " + gamesInGenre.get(i).getName());
         }
     }
 
