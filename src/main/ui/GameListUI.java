@@ -17,6 +17,7 @@ public class GameListUI extends JFrame {
     public static final int HEIGHT = 500;
     private static final String DEFAULT_DESTINATION = "./data/gamelist.json";
     private AddGameFrame addGameFrame;
+    private GraphFrame graphFrame;
     private DeleteGameFrame deleteGameFrame;
     private JButton saveButton;
     private JButton loadButton;
@@ -47,7 +48,8 @@ public class GameListUI extends JFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "WIP");
+                graphFrame = new GraphFrame(games);
+                graphFrame.setVisible(true);
             }
         });
         add(button);
