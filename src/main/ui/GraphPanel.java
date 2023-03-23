@@ -11,10 +11,10 @@ import java.awt.geom.*;
 // As a reference
 
 public class GraphPanel extends JPanel {
-    public final static int MARGIN = 60;
+    public static final int MARGIN = 60;
     private GameList games;
-    private double xScale;
-    private double yScale;
+    private double horiScale;
+    private double vertScale;
 
     public GraphPanel(GameList games) {
         this.games = games;
@@ -35,34 +35,35 @@ public class GraphPanel extends JPanel {
     }
 
     private void drawAxis(Graphics2D graph, int width, int height) {
-        graph.drawString("Relative Price(Scaled Price)", MARGIN-50, MARGIN-10);
-        graph.drawString("Score given", width-MARGIN-10,height-MARGIN+20);
+        graph.drawString("Relative Price(Scaled Price)", MARGIN - 50, MARGIN - 10);
+        graph.drawString("Score given", width - MARGIN - 10, height - MARGIN + 20);
     }
 
     private void drawPoints(Graphics2D g, int width, int height) {
-        xScale = (double) (width - 2 * MARGIN) / 10;
-        yScale = (double) (height - 2 * MARGIN) / getMaxPriceNoUnPlayed();
+        horiScale = (double) (width - 2 * MARGIN) / 10;
+        vertScale = (double) (height - 2 * MARGIN) / getMaxPriceNoUnPlayed();
         g.setPaint(Color.BLUE);
-        for(int i = 0; i < games.getSize(); i++){
+        for (int i = 0; i < games.getSize(); i++) {
             drawPoint(g, width, height, games.getGame(i));
         }
     }
 
     private void drawPoint(Graphics2D g, int width, int height, Game game) {
-        if(game.getScore() == -1){
+        if (game.getScore() == -1) {
             return;
         }
-        double x = game.getScore() * xScale  + MARGIN;
-        double y = height - MARGIN - game.getPrice() * yScale;
-        g.fill(new Ellipse2D.Double(x-3,y-3,9,9));
+        double x = game.getScore() * horiScale + MARGIN;
+        double y = height - MARGIN - game.getPrice() * vertScale;
+        g.fill(new Ellipse2D.Double(x - 3, y - 3, 9, 9));
     }
 
     private double getMaxPriceNoUnPlayed() {
         double max = Double.MIN_VALUE;
         for (int i = 0; i < games.getSize(); i++) {
             if (games.getGame(i).getPrice() > max) {
-                if(games.getGame(i).getScore() != -1)
+                if (games.getGame(i).getScore() != -1) {
                     max = games.getGame(i).getPrice();
+                }
             }
         }
         return max;
