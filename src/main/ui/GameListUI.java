@@ -26,6 +26,7 @@ public class GameListUI extends JFrame {
     private ViewFrame viewFrame;
     private GameList games;
 
+    // Effects : Constructs and initializes the application
     public GameListUI() {
         games = new GameList();
         initializeFrames();
@@ -43,6 +44,8 @@ public class GameListUI extends JFrame {
 
     }
 
+    // Modifies: this
+    // Effects: initializes graph frame and graph button.
     private void initializeGraphButton() {
         JButton button = new JButton("Graph");
         button.addActionListener(new ActionListener() {
@@ -55,6 +58,8 @@ public class GameListUI extends JFrame {
         add(button);
     }
 
+    // Modifies: this
+    // Effects: initializes load from button
     private void initializeLoadFromButton() {
         JButton button = new JButton("Load From...");
         button.addActionListener(new ActionListener() {
@@ -69,6 +74,8 @@ public class GameListUI extends JFrame {
         add(button);
     }
 
+    // Modifies: this
+    // Effects: Initializes Save As Button
     private void initializeSaveAsButton() {
         JButton button = new JButton("Save as...");
         button.addActionListener(new ActionListener() {
@@ -89,6 +96,8 @@ public class GameListUI extends JFrame {
         add(button);
     }
 
+    // Modifies: this
+    // Effects: Initializes view frame and view button
     private void initializeViewButton() {
         viewFrame = new ViewFrame(games);
         JButton viewGameButton = new JButton("View Games");
@@ -102,6 +111,8 @@ public class GameListUI extends JFrame {
         add(viewGameButton);
     }
 
+    // Modifies: this
+    // Effects: Initializes Total Price button.
     private void initializeTotalButton() {
         totalButton = new JButton("Compute Total Price");
         totalButton.addActionListener(new ActionListener() {
@@ -120,6 +131,8 @@ public class GameListUI extends JFrame {
         add(totalButton);
     }
 
+    // Modifies: this
+    // Effects: Initializes Average Price button
     private void initializeAvgButton() {
         avgButton = new JButton("Compute Average Price");
         avgButton.addActionListener(new ActionListener() {
@@ -138,6 +151,8 @@ public class GameListUI extends JFrame {
         add(avgButton);
     }
 
+    // Modifies: this
+    // Effects: Initializes Load Button
     private void initializeLoadButton() {
         loadButton = new JButton("Load from Default");
         loadButton.addActionListener(new ActionListener() {
@@ -149,6 +164,8 @@ public class GameListUI extends JFrame {
         add(loadButton);
     }
 
+    // Modifies: this
+    // Effects: Loads game from a filie
     private void load(String source) {
         JsonReaderGameList reader = new JsonReaderGameList(source);
         try {
@@ -165,6 +182,8 @@ public class GameListUI extends JFrame {
         }
     }
 
+    // Modifies: this
+    // Effects: Initializes Save Button
     private void initializeSaveButton() {
         saveButton = new JButton("Save to Default");
         saveButton.addActionListener(new ActionListener() {
@@ -176,6 +195,7 @@ public class GameListUI extends JFrame {
         add(saveButton);
     }
 
+    // Effects: Saves current list at selected destination
     private void save(String destination) {
         if (games.getSize() == 0) {
             JOptionPane.showMessageDialog(null, "No Games to save!", "Save",
@@ -195,8 +215,10 @@ public class GameListUI extends JFrame {
 
     }
 
-
+    // Modifies: this
+    // Effects: Initializes Delete Button and Delete Frame
     private void initializeDeleteButton() {
+        deleteGameFrame = new DeleteGameFrame(games);
         JButton deleteGameButton = new JButton("Delete Game");
         deleteGameButton.addActionListener(new ActionListener() {
             @Override
@@ -208,8 +230,10 @@ public class GameListUI extends JFrame {
         add(deleteGameButton);
     }
 
-
+    // Modifies: this
+    // Effects: Initializes Add Button and Add Frame
     private void initializeAddButton() {
+        addGameFrame = new AddGameFrame(games);
         JButton addGameButton = new JButton("Add Game");
         addGameButton.addActionListener(new ActionListener() {
             @Override
@@ -220,17 +244,15 @@ public class GameListUI extends JFrame {
         add(addGameButton);
     }
 
-
+    // Modifies: this
+    // Effects: Initializes Main Frame
     private void initializeFrames() {
         this.setTitle("Game List Application");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setSize(WIDTH, HEIGHT);
         setLayout(new GridLayout(5, 2));
-        // Add, delete, save, load, avg price, total price, graph,view, save as /load from
         setLocationRelativeTo(null);
-        addGameFrame = new AddGameFrame(games);
-        deleteGameFrame = new DeleteGameFrame(games);
     }
 
 

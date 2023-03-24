@@ -20,6 +20,7 @@ public class AddGameFrame extends JFrame implements ActionListener {
     private JButton clear;
     private GameList games;
 
+    // Effects: Constructs add game frame
     public AddGameFrame(GameList games) {
         this.games = games;
         initializeFrame();
@@ -30,6 +31,8 @@ public class AddGameFrame extends JFrame implements ActionListener {
         initializeSubmitButton();
     }
 
+    // Modifies: this
+    // Effects: Initializes submit button
     private void initializeSubmitButton() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
@@ -42,16 +45,8 @@ public class AddGameFrame extends JFrame implements ActionListener {
         add(panel);
     }
 
-    private int getScore() {
-        String result = (String) scoreField.getSelectedItem();
-        if (result.equals("Un-played")) {
-            return -1;
-        } else {
-            return Integer.parseInt(result);
-        }
-
-    }
-
+    // Modifies: this
+    // Effects: Initializes score input field
     private void initializeScoreField() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
@@ -64,6 +59,8 @@ public class AddGameFrame extends JFrame implements ActionListener {
         add(panel);
     }
 
+    // Modifies: this
+    // Effects: Initializes genre input field
     private void initializeGenreField() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
@@ -76,6 +73,8 @@ public class AddGameFrame extends JFrame implements ActionListener {
         add(panel);
     }
 
+    // Modifies: this
+    // Effects: Initializes price input field
     private void initializePriceField() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
@@ -88,6 +87,8 @@ public class AddGameFrame extends JFrame implements ActionListener {
         add(panel);
     }
 
+    // Modifies: this
+    // Effects: Initializes main frame to add a game
     private void initializeFrame() {
         this.setTitle("Add a Game!");
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -97,6 +98,8 @@ public class AddGameFrame extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
     }
 
+    // Modifies: this
+    // Effects: Initializes name input field
     private void initializeNameField() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
@@ -110,6 +113,8 @@ public class AddGameFrame extends JFrame implements ActionListener {
     }
 
     @Override
+    // Modifies: this
+    // Effects: Processes actions
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == clear) {
             clearFields();
@@ -133,6 +138,7 @@ public class AddGameFrame extends JFrame implements ActionListener {
         }
     }
 
+    // Effects : Prints successful message if game was added, error message otherwise
     private void printMessage(boolean success) {
         if (!success) {
             JOptionPane.showMessageDialog(null,
@@ -145,6 +151,8 @@ public class AddGameFrame extends JFrame implements ActionListener {
         }
     }
 
+    // Modifies: this
+    // Effects: adds a game to the GameList
     private boolean addGame(String name, Double price, String genre, int score) {
         Game game;
         boolean success = false;
@@ -162,6 +170,7 @@ public class AddGameFrame extends JFrame implements ActionListener {
 
     }
 
+    // Effects: clears input fields.
     private void clearFields() {
         priceField.setText("");
         nameField.setText("");
