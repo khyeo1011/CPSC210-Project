@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Frame for adding a game
 public class AddGameFrame extends JFrame implements ActionListener {
     public static final String[] SCORES = {"Un-played", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
     private JTextField nameField;

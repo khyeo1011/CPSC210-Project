@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.*;
 import java.util.List;
 
+// Frame for viewing / changing games
 public class ViewFrame extends JFrame implements ActionListener {
     private GameList games;
     private DefaultListModel gameList;
@@ -33,6 +34,7 @@ public class ViewFrame extends JFrame implements ActionListener {
     private JTextField searchGenreField;
     private int selectedIndex;
 
+    // Effects : Constructs a view frame with the GameList
     public ViewFrame(GameList games) {
         this.games = games;
         selectedIndex = -1;
@@ -40,6 +42,8 @@ public class ViewFrame extends JFrame implements ActionListener {
         updateList();
     }
 
+    // Modifies : this
+    // Effects : Updates the List that contains the game name
     public void updateList() {
         gameList.removeAllElements();
         for (int i = 0; i < games.getSize(); i++) {
@@ -47,6 +51,8 @@ public class ViewFrame extends JFrame implements ActionListener {
         }
     }
 
+    // Modifies : this
+    // Effects : initializes the frames and internal frames and adds them to the main frame.
     private void initializeFrame() {
         this.setTitle("Game View");
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -62,6 +68,8 @@ public class ViewFrame extends JFrame implements ActionListener {
         desktop.add(filterFrame);
     }
 
+    // Modifies : this
+    // Effects: Initializes the Filter game internal frame.
     private void initializeFilterFrame() {
         filterGameList = new DefaultListModel();
         filterList = new JList<>(filterGameList);
@@ -79,6 +87,8 @@ public class ViewFrame extends JFrame implements ActionListener {
         filterFrame.setVisible(true);
     }
 
+    // Modifies : this
+    // Effects: Initializes the change game internal frame.
     private void initializeChangeFrame() {
         changeFrame = new JInternalFrame("Info", true, false);
         changeButton = new JButton("Change!");
@@ -94,6 +104,8 @@ public class ViewFrame extends JFrame implements ActionListener {
         changeFrame.setVisible(true);
     }
 
+    // Modifies : this
+    // Effects: Initializes the score field
     private void initializeScoreField() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
@@ -107,6 +119,8 @@ public class ViewFrame extends JFrame implements ActionListener {
         changeFrame.add(panel);
     }
 
+    // Modifies : this
+    // Effects: Initializes the genre field
     private void initializeGenreField() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
@@ -120,6 +134,8 @@ public class ViewFrame extends JFrame implements ActionListener {
         changeFrame.add(panel);
     }
 
+    // Modifies : this
+    // Effects: Initializes the price field
     private void initializePriceField() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
@@ -133,6 +149,8 @@ public class ViewFrame extends JFrame implements ActionListener {
         changeFrame.add(panel);
     }
 
+    // Modifies : this
+    // Effects: Initializes the name field
     private void initializeNameField() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
@@ -146,6 +164,8 @@ public class ViewFrame extends JFrame implements ActionListener {
         changeFrame.add(panel);
     }
 
+    // Modifies : this
+    // Effects: Initializes the list that displays all the games
     private void initializeListFrame() {
         gameList = new DefaultListModel();
         list = new JList<>(gameList);
@@ -168,6 +188,8 @@ public class ViewFrame extends JFrame implements ActionListener {
         list.addMouseListener(mouseListener);
     }
 
+    // Modifies : this
+    // Effects : Changes the texts of the fields to the selected game's index
     private void changeTextFields(int index) {
         nameField.setEditable(true);
         genreField.setEditable(true);
@@ -181,6 +203,8 @@ public class ViewFrame extends JFrame implements ActionListener {
 
 
     @Override
+    // Modifies: this
+    // Effects: Processes user input
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == searchGenreField) {
             searchGames(searchGenreField.getText());
@@ -206,6 +230,8 @@ public class ViewFrame extends JFrame implements ActionListener {
 
     }
 
+    // Modifies: this
+    // Effects : filters the game and updates the filtered list to have the games.
     private void searchGames(String text) {
         List<Game> gamesInGenre = games.gamesInGenre(text);
         filterGameList.removeAllElements();
@@ -218,6 +244,8 @@ public class ViewFrame extends JFrame implements ActionListener {
         }
     }
 
+    // Modifies: this
+    // Effects : changes the selected game with new fields.
     private void changeGame(String name, String price, String genre, String score) {
         Game game = games.getGame(selectedIndex);
         String originalName = game.getName();
@@ -245,6 +273,8 @@ public class ViewFrame extends JFrame implements ActionListener {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
+    // Modifies: this
+    // Effects : helper to set the score for the game.
     private void trySetScore(String score, Game game) {
         try {
             game.setScore(score.equals("Un-played") ? -1 : Integer.parseInt(score));

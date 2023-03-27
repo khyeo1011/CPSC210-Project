@@ -9,12 +9,14 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Vector;
 
+// Frame that enables the user to delete a Game.
 public class DeleteGameFrame extends JFrame implements ActionListener {
     private GameList games;
     private JComboBox gameIndices;
     private JTextField gameName;
     private JButton button;
 
+    // Effects : constructs a DeleteGameFrame.
     public DeleteGameFrame(GameList games) {
         this.games = games;
         initializeFrame();
@@ -22,12 +24,16 @@ public class DeleteGameFrame extends JFrame implements ActionListener {
         initializeButton();
     }
 
+    // Modifies: this
+    // Effects : Initializes delete button
     private void initializeButton() {
         button = new JButton("Delete Game");
         button.addActionListener(this);
         add(button);
     }
 
+    // Modifies: this
+    // Effects : Initializes fields that display game info
     private void initializeFields() {
         gameIndices = new JComboBox<>();
         gameIndices.addActionListener(this);
@@ -40,6 +46,8 @@ public class DeleteGameFrame extends JFrame implements ActionListener {
         add(panel);
     }
 
+    // Modifies: this
+    // Effects : Initializes the frame
     private void initializeFrame() {
         this.setTitle("Delete a game");
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -50,6 +58,8 @@ public class DeleteGameFrame extends JFrame implements ActionListener {
     }
 
     @Override
+    // Modifies: this
+    // Effects : Processes user input
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == gameIndices) {
             if (gameIndices.getSelectedItem() != null) {
@@ -73,6 +83,8 @@ public class DeleteGameFrame extends JFrame implements ActionListener {
         }
     }
 
+    // Modifies: this
+    // Effects : Refreshes the items in the comboBox
     public void refreshComboBox() {
         gameIndices.removeAllItems();
         for (int i = 0; i < games.getSize(); i++) {
