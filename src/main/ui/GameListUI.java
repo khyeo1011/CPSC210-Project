@@ -16,7 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 // Gamelist Application
-public class GameListUI extends JFrame implements WindowListener{
+public class GameListUI extends JFrame implements WindowListener {
     public static final int WIDTH = 400;
     public static final int HEIGHT = 500;
     private static final String DEFAULT_DESTINATION = "./data/gamelist.json";
@@ -261,7 +261,7 @@ public class GameListUI extends JFrame implements WindowListener{
     }
 
     private void printEvents() {
-        for(Event event : EventLog.getInstance()){
+        for (Event event : EventLog.getInstance()) {
             System.out.println(event.getDate() + " : " + event.getDescription());
         }
     }
