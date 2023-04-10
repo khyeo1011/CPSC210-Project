@@ -25,6 +25,7 @@ public class GameList implements SaveableAndReadable {
             }
         }
         games.add(game);
+        EventLog.getInstance().logEvent(new Event("Added Game with name " + game.getName()));
         return true;
     }
 
@@ -44,13 +45,17 @@ public class GameList implements SaveableAndReadable {
         for (Game game : games) {
             sum += game.getPrice();
         }
+        EventLog.getInstance().logEvent(new Event("Calculated Total Price: " + sum));
         return sum;
     }
 
     // REQUIRES: games.size() > 0
     // EFFECTS : returns the average price of the games.
     public double avgPrice() {
-        return totalPrice() / getSize();
+        double avg = totalPrice() / getSize();
+        EventLog.getInstance().logEvent(new Event("Calculated Average Price: " + avg));
+        return avg;
+
     }
 
     @Override
@@ -77,6 +82,7 @@ public class GameList implements SaveableAndReadable {
         if (index < 0 || index >= getSize()) {
             throw new IndexOutOfBoundsException();
         }
+        EventLog.getInstance().logEvent(new Event("Deleted Game with name " + games.get(index).getName()));
         games.remove(index);
     }
 
@@ -89,6 +95,8 @@ public class GameList implements SaveableAndReadable {
                 ret.add(game);
             }
         }
+        EventLog.getInstance().logEvent(new Event("Searched for genre: " + genre
+                + " and found " + ret.size() + " games"));
         return ret;
     }
 

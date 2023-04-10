@@ -278,7 +278,6 @@ public class ViewFrame extends JFrame implements ActionListener {
     private void trySetScore(String score, Game game) {
         try {
             game.setScore(score.equals("Un-played") ? -1 : Integer.parseInt(score));
-            System.out.println(game.getScore());
         } catch (InvalidScoreException ex) {
             throw new RuntimeException(ex);
         }

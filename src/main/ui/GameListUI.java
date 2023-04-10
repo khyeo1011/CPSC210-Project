@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.GameList;
 import persistence.JsonReaderGameList;
 import persistence.JsonWriterGameList;
@@ -8,11 +10,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 // Gamelist Application
-public class GameListUI extends JFrame {
+public class GameListUI extends JFrame implements WindowListener{
     public static final int WIDTH = 400;
     public static final int HEIGHT = 500;
     private static final String DEFAULT_DESTINATION = "./data/gamelist.json";
@@ -251,8 +255,15 @@ public class GameListUI extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setSize(WIDTH, HEIGHT);
+        this.addWindowListener(this);
         setLayout(new GridLayout(5, 2));
         setLocationRelativeTo(null);
+    }
+
+    private void printEvents() {
+        for(Event event : EventLog.getInstance()){
+            System.out.println(event.getDate() + " : " + event.getDescription());
+        }
     }
 
 
@@ -260,5 +271,44 @@ public class GameListUI extends JFrame {
         new GameListUI();
     }
 
+    // Unused
+    @Override
+    public void windowOpened(WindowEvent e) {
 
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        printEvents();
+    }
+
+    // Unused
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    // Unused
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    // Unused
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    // Unused
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    // Unused
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
+    }
 }

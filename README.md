@@ -25,3 +25,19 @@ to play in the near future.
 - You can locate my visual component by clicking on "Graph"
 - You can save the state of my application by "Save to default"
 - You can reload the state of my application by "Load from default"
+
+## Phase 4: Task 2
+    Sun Apr 09 19:40:25 PDT 2023 : Added Game with name test01
+    Sun Apr 09 19:40:25 PDT 2023 : Added Game with name test02
+    Sun Apr 09 19:40:25 PDT 2023 : Added Game with name test04
+    Sun Apr 09 19:40:25 PDT 2023 : Added Game with name test04genre
+    Sun Apr 09 19:40:25 PDT 2023 : Added Game with name addtest
+    Sun Apr 09 19:40:33 PDT 2023 : Added Game with name event
+    Sun Apr 09 19:40:52 PDT 2023 : Added Game with name genre
+    Sun Apr 09 19:41:02 PDT 2023 : Added Game with name del
+    Sun Apr 09 19:41:06 PDT 2023 : Deleted Game with name del
+    Sun Apr 09 19:41:08 PDT 2023 : Calculated Total Price: 116.0
+    Sun Apr 09 19:41:08 PDT 2023 : Calculated Average Price: 16.571428571428573
+    Sun Apr 09 19:41:09 PDT 2023 : Calculated Total Price: 116.0
+    Sun Apr 09 19:41:17 PDT 2023 : Searched for genre: event and found 2 games
+    Sun Apr 09 19:41:24 PDT 2023 : Searched for genre: nogamesinthisgenre and found 0 games

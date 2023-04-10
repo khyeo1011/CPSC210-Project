@@ -123,7 +123,7 @@ public class AddGameFrame extends JFrame implements ActionListener {
         if (e.getSource() == submit) {
             String name = new String(nameField.getText());
             String price = priceField.getText();
-            String genre = new String(priceField.getText());
+            String genre = new String(genreField.getText());
             String score = (String) scoreField.getSelectedItem();
             boolean success = false;
             try {
@@ -160,7 +160,6 @@ public class AddGameFrame extends JFrame implements ActionListener {
         try {
             game = new Game(name, price, genre, score);
             success = games.addGame(game);
-            System.out.println(game);
         } catch (NegativePriceException e) {
             JOptionPane.showMessageDialog(null, "Invalid Price!",
                     "Invalid Price!", JOptionPane.ERROR_MESSAGE);

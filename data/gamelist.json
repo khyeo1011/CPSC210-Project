@@ -12,12 +12,6 @@
         "genre": "20.02"
     },
     {
-        "score": -1,
-        "price": 3,
-        "name": "test03",
-        "genre": "03"
-    },
-    {
         "score": 4,
         "price": 4,
         "name": "test04",
@@ -28,5 +22,23 @@
         "price": 12,
         "name": "test04genre",
         "genre": "04"
+    },
+    {
+        "score": 6,
+        "price": 10,
+        "name": "addtest",
+        "genre": "10"
+    },
+    {
+        "score": -1,
+        "price": 10,
+        "name": "event",
+        "genre": "event"
+    },
+    {
+        "score": 2,
+        "price": 60,
+        "name": "genre",
+        "genre": "event"
     }
 ]}
